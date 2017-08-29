@@ -3,19 +3,5 @@
     <h1>
         Welcome to {{title}}!
     </h1>
-    <button class="btn btn-default" (click)="onAdd()">Add</button>
-    <ul style="list-style: none;">
-        <li *ngFor="let c of courses; index as i; even as isEven">
-            {{ i }} - {{c.name}} <span *ngIf="isEven">(Even)</span>
-            <button class="btn btn-danger" (click)="onRemove(c)">Remove</button>
-            <button class="btn btn-primary" (click)="onChange(c)">Update</button>
-        </li>
-    </ul>
-    <br>
-    <button class="btn btn-info" (click)="loadCourses()">Load</button>
-    <ul style="list-style: none;">
-        <li *ngFor="let c of newCourses; trackBy:trackCourse">
-            {{c.name}}
-        </li>
-    </ul>
+    <favorite></favorite>
 </div>
