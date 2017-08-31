@@ -11,6 +11,8 @@ import { PanelComponent } from './panel/panel.component';
 import { InputFormatDirective } from './input-format.directive';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
+import { ChangePasswordFormComponent } from "./assignments/change-password-form/change-password-form.component";
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
     PanelComponent,
     InputFormatDirective,
     ContactFormComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    ChangePasswordFormComponent
   ],
   imports: [
     BrowserModule,
