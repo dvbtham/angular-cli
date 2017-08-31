@@ -1,3 +1,6 @@
+import { AppError } from './../common/app-error';
+import { BadRequestError } from './../common/bad-request-error';
+import { NotFoundError } from './../common/not-found-error';
 import { PostService } from './../services/post.service';
 import { Component, OnInit } from '@angular/core';
 import { Http } from "@angular/http";
@@ -7,19 +10,19 @@ import { Http } from "@angular/http";
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
-export class PostsComponent implements OnInit{
+export class PostsComponent implements OnInit {
   ngOnInit(): void {
     this.service.getPosts()
-    .subscribe(response => {
-      this.posts = response.json();
-    });
+      .subscribe(response => {
+        this.posts = response.json();
+      });
   }
 
   posts: any[];
-  
+
 
   constructor(private service: PostService) {
-    
+
   }
 
   createPost(input: HTMLInputElement) {
@@ -30,6 +33,12 @@ export class PostsComponent implements OnInit{
     this.service.createPost(post).subscribe(respone => {
       this.posts.splice(0, 0, post);
       post['id'] = respone.json().id;
+    }, (error: AppError) => {
+      if (error instanceof BadRequestError) {
+        //  this.form.setErrors(error.originalError);
+      }
+      else
+        throw error;
     });
   }
 
@@ -45,6 +54,10 @@ export class PostsComponent implements OnInit{
       .subscribe(respone => {
         let index = this.posts.indexOf(post);
         this.posts.splice(index, 1);
+      }, (error: AppError) => {
+        if (error instanceof NotFoundError)
+          alert('This post has already been deleted.');
+        else throw error;
       });
   }
 
