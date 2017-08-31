@@ -1,8 +1,31 @@
-<form>
-    <input class="form-control" type="text" #topic (keyup.enter)="addTopic(topic)">
-    <ul class="list-group">
-        <li class="list-group-item" (click)="removeTopic(topic)" *ngFor="let topic of form.get('topics').controls">
-            {{ topic.value }}
-        </li>
-    </ul>
+<form [formGroup]="form">
+    <div class="form-group">
+        <label>Name: </label>
+        <input class="form-control" type="text" #name (keyup.enter)="addTopic(name, form)" formControlName="name">
+
+        <div class="alert alert-danger" *ngIf="form.controls['name'].touched && form.controls['name'].hasError('required')">Name is is required </div>
+        <div class="alert alert-danger" *ngIf="form.controls['name'].touched  && form.controls['name'].hasError('minlength')">Name should be minumum 3 characters. </div>
+        <div class="alert alert-danger" *ngIf="form.controls['name'].touched  && form.controls['name'].hasError('shouldBeUnique')">Name is already taken. </div>
+
+        <ul class="list-group">
+            <li class="list-group-item" (click)="removeTopic(topic)" *ngFor="let topic of form.value.topics">
+                {{ topic }}
+            </li>
+        </ul>
+    </div>
+    <div formGroupName="contact">
+        <div class="form-group">
+            <label>Email: </label>
+            <input class="form-control" type="email" formControlName="email">
+            <div class="alert alert-danger" *ngIf="form.controls['contact'].controls['email'].touched && form.controls['contact'].controls['email'].hasError('required')">Email is is required </div>
+            <div class="alert alert-danger" *ngIf="form.controls['contact'].controls['email'].touched && form.controls['contact'].controls['email'].hasError('pattern')">Email format is not valid </div>
+        </div>
+        <div class="form-group">
+            <label>Phone: </label>
+            <input class="form-control" type="text" formControlName="phone">
+            <div class="alert alert-danger" *ngIf="form.controls['contact'].controls['phone'].touched && form.controls['contact'].controls['phone'].hasError('required')">Phone is is required </div>
+            <div class="alert alert-danger" *ngIf="form.controls['contact'].controls['phone'].touched && form.controls['contact'].controls['phone'].hasError('pattern')">Phone format is not valid </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" [disabled]="form.invalid">Add Course</button>
 </form>

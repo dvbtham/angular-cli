@@ -1,4 +1,5 @@
-import { FormGroup, FormArray, FormControl } from '@angular/forms';
+import { UsernameValidators } from './../signup-form/username.validators';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,18 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent {
-  form = new FormGroup({
-    topics: new FormArray([])
-  });
-  addTopic(topic: HTMLInputElement) {
-    this.topics.push(new FormControl(topic.value));
-    topic.value = "";
+  form: FormGroup;
+  constructor(fb: FormBuilder) {
+    this.form = fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)], UsernameValidators.shouldBeUnique],
+      contact: fb.group({
+        email: ['', [Validators.required, Validators.pattern('^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$')]],
+        phone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
+      }),
+      topics: fb.array([])
+    });
   }
-  removeTopic(topic: FormControl){
-    let index = this.topics.controls.indexOf(topic);
-    this.topics.removeAt(index);
+
+  addTopic(name) {
+    this.form.value.topics.push(name.value);
   }
-  get topics(){
-    return this.form.get('topics') as FormArray;
+  removeTopic(topic) {
+    let index = this.form.value.topics.indexOf(topic);
+    this.form.value.topics.splice(index, 1);
   }
 }
