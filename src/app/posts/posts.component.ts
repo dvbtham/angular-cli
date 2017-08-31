@@ -12,7 +12,7 @@ import { Http } from "@angular/http";
 })
 export class PostsComponent implements OnInit {
   ngOnInit(): void {
-    this.service.getPosts()
+    this.service.getAll()
       .subscribe(response => {
         this.posts = response.json();
       });
@@ -30,7 +30,7 @@ export class PostsComponent implements OnInit {
       title: input.value
     }
     input.value = '';
-    this.service.createPost(post).subscribe(respone => {
+    this.service.create(post).subscribe(respone => {
       this.posts.splice(0, 0, post);
       post['id'] = respone.json().id;
     }, (error: AppError) => {
@@ -43,14 +43,14 @@ export class PostsComponent implements OnInit {
   }
 
   updatePost(post: any) {
-    this.service.updatePost(post)
+    this.service.update(post)
       .subscribe(respone => {
         console.log(respone.json());
       });
   }
 
   deletePost(post: any) {
-    this.service.deletePost(post.id)
+    this.service.delete(post.id)
       .subscribe(respone => {
         let index = this.posts.indexOf(post);
         this.posts.splice(index, 1);
