@@ -3,6 +3,7 @@ import { CoursesService } from './course.service';
 import { CoursesComponent } from './courses.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CourseComponent } from './course/course.component';
@@ -12,6 +13,7 @@ import { InputFormatDirective } from './input-format.directive';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { ChangePasswordFormComponent } from "./assignments/change-password-form/change-password-form.component";
+import { PostsComponent } from './posts/posts.component';
 
 
 @NgModule({
@@ -25,12 +27,14 @@ import { ChangePasswordFormComponent } from "./assignments/change-password-form/
     InputFormatDirective,
     ContactFormComponent,
     SignupFormComponent,
-    ChangePasswordFormComponent
+    ChangePasswordFormComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [
     CoursesService

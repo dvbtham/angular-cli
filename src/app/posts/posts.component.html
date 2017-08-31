@@ -1,0 +1,22 @@
+<input type="text" class="form-control" placeholder="Enter to add post" #input (keyup.enter)="createPost(input)">
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of posts">
+                <td>{{ p.id }}</td>
+                <td>{{ p.title }}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" (click)="updatePost(p)">Update</button>
+                    <button class="btn btn-sm btn-danger" (click)="deletePost(p)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
