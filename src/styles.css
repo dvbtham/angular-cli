@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~bootstrap/dist/css/bootstrap.css";
+#main-wrapper {
+    margin: 0 auto;
+    width: 50%;
+}
+
 .form-control.ng-invalid.ng-touched {
     border: 1px solid #a94442;
 }
