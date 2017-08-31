@@ -12,10 +12,7 @@ import { Http } from "@angular/http";
 })
 export class PostsComponent implements OnInit {
   ngOnInit(): void {
-    this.service.getAll()
-      .subscribe(response => {
-        this.posts = response.json();
-      });
+    this.service.getAll().subscribe(posts => this.posts = posts);
   }
 
   posts: any[];
@@ -30,9 +27,9 @@ export class PostsComponent implements OnInit {
       title: input.value
     }
     input.value = '';
-    this.service.create(post).subscribe(respone => {
+    this.service.create(post).subscribe(posts => {
       this.posts.splice(0, 0, post);
-      post['id'] = respone.json().id;
+      post['id'] = posts.id;
     }, (error: AppError) => {
       if (error instanceof BadRequestError) {
         //  this.form.setErrors(error.originalError);
@@ -44,14 +41,14 @@ export class PostsComponent implements OnInit {
 
   updatePost(post: any) {
     this.service.update(post)
-      .subscribe(respone => {
-        console.log(respone.json());
+      .subscribe(updatedPost => {
+        console.log(updatedPost);
       });
   }
 
   deletePost(post: any) {
     this.service.delete(post.id)
-      .subscribe(respone => {
+      .subscribe(() => {
         let index = this.posts.indexOf(post);
         this.posts.splice(index, 1);
       }, (error: AppError) => {
