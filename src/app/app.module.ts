@@ -17,6 +17,7 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { ChangePasswordFormComponent } from "./assignments/change-password-form/change-password-form.component";
 import { PostsComponent } from './posts/posts.component';
+import { GithubFollowersComponent } from './github-followers/github-followers.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PostsComponent } from './posts/posts.component';
     ContactFormComponent,
     SignupFormComponent,
     ChangePasswordFormComponent,
-    PostsComponent
+    PostsComponent,
+    GithubFollowersComponent
   ],
   imports: [
     BrowserModule,
